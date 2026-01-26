@@ -24,6 +24,6 @@ Users feel responsible for their pet, which encourages consistency and habit-bui
 - Firebase (Auth & backend)
 - Lottie Animations
 
-## 🚀 Status
+# Status
 Actively developed and continuously improved.
 
