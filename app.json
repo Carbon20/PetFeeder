@@ -27,46 +27,60 @@
     "scheme": "petfeeder",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSUserNotificationsUsageDescription": "Bu uygulama görev hatırlatıcıları için bildirim göndermek istiyor.",
+        "UIBackgroundModes": ["remote-notification"]
+      }
     },
     "android": {
       "package": "com.arslanstdio20.petfeeder20",
-      "versionCode": 7,
-      "icon": "./assets/images/icon.png",
-      "permissions": ["POST_NOTIFICATIONS"],
+      "softwareKeyboardLayoutMode": "resize",
+      "versionCode": 31,
+      "permissions": [
+        "VIBRATE",
+        "RECEIVE_BOOT_COMPLETED",
+        "POST_NOTIFICATIONS"
+      ],
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "playBilling": true
     },
     "web": {
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/icon.png"
     },
     "plugins": [
       [
         "expo-build-properties",
         {
           "android": {
-            "compileSdkVersion": 33,
-            "targetSdkVersion": 33,
-            "buildToolsVersion": "33.0.0"
+            "compileSdkVersion": 35,
+            "targetSdkVersion": 35,
+            "buildToolsVersion": "35.0.0"
           }
         }
       ],
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
+          "image": "./assets/images/icon.png",
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
       ],
       "expo-font",
+      "expo-router",
+      "expo-web-browser",
       [
         "expo-notifications",
         {
           "icon": "./assets/images/icon.png",
-          "color": "#118AB2"
+          "color": "#4CC9F0",
+          "sounds": [
+            "./assets/sounds/bark_short.mp3",
+            "./assets/sounds/meow_short.mp3"
+          ]
         }
       ]
     ],
