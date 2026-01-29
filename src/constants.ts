@@ -2,7 +2,7 @@ import { ThemeColor } from "./types";
 
 export const CURRENT_APP_VERSION = "3.0.0"; 
 export const STORE_URL = "https://play.google.com/store/apps/details?id=com.arslanstdioh.petfeeder"; 
-export const REVENUECAT_API_KEY = "goog_rEaMOfTSaUylfUmosaPOTAkxUzW"; 
+export const REVENUECAT_API_KEY = ""; 
 
 // Storage Keys
 export const STORAGE_KEYS = {
