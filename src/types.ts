@@ -26,8 +26,8 @@ export type ThemeColor = {
   key: string;
   label: string;
   main: string;
-  bg: string;     // Arkaplan rengi (pastel)
-  accent: string; // Koyu vurgu rengi (border/shadow için)
+  bg: string;     
+  accent: string; 
 };
 
 export type UserData = {
@@ -37,5 +37,5 @@ export type UserData = {
   isSponsor: boolean;
 };
 
-// Re-export component types
+
 export * from './types/components';
