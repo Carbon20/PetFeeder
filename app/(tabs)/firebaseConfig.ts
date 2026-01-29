@@ -6,12 +6,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBk2oQq0E59GQLo9Jg_z-TpmftHES-u5yM",
+  apiKey: 
   authDomain: "petfeeder-todo.firebaseapp.com",
   projectId: "petfeeder-todo",
   storageBucket: "petfeeder-todo.firebasestorage.app",
-  messagingSenderId: "834238545050",
-  appId: "1:834238545050:web:1bfa82c0819e1cf70d7323"
+  messagingSenderId:
+  appId: 
 };
 
 
