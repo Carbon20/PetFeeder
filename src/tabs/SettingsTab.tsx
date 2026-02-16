@@ -1,26 +1,45 @@
-import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity, TextInput, Switch, Button } from 'react-native';
-import { styles } from '../styles';
+import React, { useMemo } from 'react';
+import { ScrollView, Switch, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import ModernButton from '../components/ModernButton';
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import PetPreview from '../components/PetPreview';
+import { styles } from '../styles';
 import { SettingsTabProps, ThemeColor } from '../types/components';
+import { PetType } from '../types';
+
+const PenguinAsset = require("../../assets/images/penguinn.png");
 
 export default function SettingsTab({
+  header,
+  pet,
   language, setLanguage, user, userDoc, handleLogout,
   isRegistering, setAuthModalVisible, setIsRegistering,
   simpleMode, setSimpleMode,
   soundEnabled, setSoundEnabled,
   darkMode, setDarkMode,
   themeColorKey, setThemeColorKey,
-  resetAll, handlePurchase,
+  handlePurchase,
   hasUnlimitedNameChange, freeNameChangeUsed,
   settingsPetName, setSettingsPetName, handleUpdateName,
-  setShowSupportModal, THEME_COLORS, SKUS, STORAGE_KEYS, t,
+  setShowSupportModal, setShowPartnerScreen, setShowBuyCoinsModal, THEME_COLORS, SKUS, STORAGE_KEYS, t,
   themeText, themeSubText, themeCard, actionColor, selectedTheme
 }: SettingsTabProps) {
+  const topPadding = header ? 10 : 32;
+  const otherPets = useMemo(() => {
+    const all = [
+      { id: "cat" as PetType, name: t.cat, type: "lottie" as const, source: require("../../assets/animations/cat_neutral.json") },
+      { id: "dog" as PetType, name: t.dog, type: "lottie" as const, source: require("../../assets/animations/dog_neutral.json") },
+      { id: "penguin" as PetType, name: t.penguin || "Penguin", type: "image" as const, source: PenguinAsset },
+    ];
+    return all.filter((p) => p.id !== pet.type);
+  }, [pet.type, t]);
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollGrowPadded} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+    <ScrollView
+      contentContainerStyle={[styles.scrollGrowPadded, { paddingTop: topPadding }]}
+      keyboardShouldPersistTaps="handled"
+      showsVerticalScrollIndicator={false}
+    >
+      {header}
       
        {/* DİL SEÇİMİ */}
        <View style={[styles.sectionCard, { backgroundColor: themeCard, flexDirection:'row', justifyContent:'space-between', alignItems:'center' }]}>
@@ -43,6 +62,25 @@ export default function SettingsTab({
           </View>
        </View>
 
+       {/* ----- PARA SATIN AL ----- */}
+       <Text style={[styles.sectionTitle, { marginTop: 10, color: themeText }]}>{t.buyCoins}</Text>
+       <View style={[styles.sectionCard, { backgroundColor: themeCard }]}>
+          <Text style={{ color: themeSubText, marginBottom: 10, fontSize: 14 }}>{t.buyCoinsDesc}</Text>
+          <ModernButton title={t.buyCoins} color={actionColor} onPress={() => setShowBuyCoinsModal(true)} />
+       </View>
+
+       {/* ----- ÇİFT MODU ----- */}
+       <Text style={[styles.sectionTitle, { marginTop: 10, color: themeText }]}>{t.coupleMode}</Text>
+       <View style={[styles.sectionCard, { backgroundColor: themeCard }]}>
+          <Text style={{ color: themeSubText, marginBottom: 10, fontSize: 14 }}>{t.coupleModeDesc}</Text>
+          <ModernButton
+            title={language === 'tr' ? 'Çok yakında' : 'Coming soon'}
+            color={themeSubText}
+            onPress={() => {}}
+            disabled
+          />
+       </View>
+
        {/* ----- HESAP ----- */}
        <Text style={[styles.sectionTitle, { marginTop: 10, color: themeText }]}>{t.account}</Text>
        <View style={[styles.sectionCard, { backgroundColor: themeCard }]}>
@@ -62,39 +100,50 @@ export default function SettingsTab({
        </View>
 
       {/* ----- MAĞAZA ----- */}
-      {!simpleMode && (
-      <>
-        <Text style={[styles.sectionTitle, { marginTop: 20, color: themeText }]}>{t.store}</Text>
-        <View style={[styles.sectionCard, { backgroundColor: themeCard }]}>
-          
-          <View style={styles.settingRow}>
-            <Text style={{ fontWeight: "700", color: themeText, marginBottom: 4 }}>{t.petNameTitle}</Text>
-            {hasUnlimitedNameChange || !freeNameChangeUsed ? (
-              <>
-                <TextInput
-                  placeholder={t.petNamePlace}
-                  value={settingsPetName}
-                  onChangeText={setSettingsPetName}
-                  placeholderTextColor={themeSubText}
-                  style={[styles.inputModern, { color: themeText, backgroundColor: darkMode ? '#333' : '#f4f4f5' }]}
-                />
-                <ModernButton
-                  title={!hasUnlimitedNameChange ? t.updateNameFreeBtn : t.updateNameBtn}
-                  color={actionColor}
-                  onPress={handleUpdateName}
-                />
-              </>
-            ) : (
-              <ModernButton
-                title={t.buyNameBtn}
-                color={actionColor}
-                onPress={() => handlePurchase(SKUS.UNLIMITED_NAME_CHANGE)}
+      <Text style={[styles.sectionTitle, { marginTop: 20, color: themeText }]}>{t.store}</Text>
+      <View style={[styles.sectionCard, { backgroundColor: themeCard }]}>
+        <View style={styles.settingRow}>
+          <Text style={{ fontWeight: "700", color: themeText, marginBottom: 4 }}>{t.petNameTitle}</Text>
+          {hasUnlimitedNameChange || !freeNameChangeUsed ? (
+            <>
+              <TextInput
+                placeholder={t.petNamePlace}
+                value={settingsPetName}
+                onChangeText={setSettingsPetName}
+                placeholderTextColor={themeSubText}
+                style={[styles.inputModern, { color: themeText, backgroundColor: darkMode ? '#333' : '#f4f4f5' }]}
               />
-            )}
-          </View>
+              <ModernButton
+                title={!hasUnlimitedNameChange ? t.updateNameFreeBtn : t.updateNameBtn}
+                color={actionColor}
+                onPress={handleUpdateName}
+              />
+            </>
+          ) : (
+            <ModernButton
+              title={t.buyNameBtn}
+              color={actionColor}
+              onPress={() => handlePurchase(SKUS.UNLIMITED_NAME_CHANGE)}
+            />
+          )}
         </View>
-      </>
-      )}
+      </View>
+
+      <Text style={[styles.sectionTitle, { marginTop: 10, color: themeText }]}>{t.otherPets || "Diğer Hayvanlar"}</Text>
+      <View style={[styles.sectionCard, { backgroundColor: themeCard }]}>
+        {otherPets.map((p) => (
+          <View key={p.id} style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+            <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
+              <PetPreview type={p.type} source={p.source} size={52} />
+              <Text style={{ marginLeft: 10, color: themeText, fontWeight: "700" }}>{p.name}</Text>
+            </View>
+            <View style={{ alignItems: "center" }}>
+              <ModernButton title={t.buyPet || "Satın Al"} color={actionColor} onPress={() => {}} disabled />
+              <Text style={{ marginTop: 4, color: themeSubText, fontSize: 12 }}>{t.coin || "Coin"}</Text>
+            </View>
+          </View>
+        ))}
+      </View>
 
       {/* ----- DESTEK ----- */}
       <Text style={[styles.sectionTitle, { marginTop: 20, color: themeText }]}>{t.support}</Text>
@@ -145,9 +194,7 @@ export default function SettingsTab({
           </ScrollView>
         </View>
         
-        <View style={{ marginTop: 20 }}>
-          <Button title={t.resetAll} onPress={resetAll} color="#FF5252" />
-        </View>
+        
       </View>
     </ScrollView>
   );

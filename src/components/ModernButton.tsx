@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { ModernButtonProps } from '../types/components';
 
 const ModernButton = ({ title, onPress, color, style, disabled }: ModernButtonProps) => (
@@ -17,7 +17,7 @@ const ModernButton = ({ title, onPress, color, style, disabled }: ModernButtonPr
       justifyContent: 'center',
     }, style]}
   >
-    <Text style={{color: '#fff', fontWeight: '800', fontSize: 16}}>{title}</Text>
+    <Text allowFontScaling={false} style={{color: '#fff', fontWeight: '800', fontSize: 16}}>{title}</Text>
   </TouchableOpacity>
 );
 

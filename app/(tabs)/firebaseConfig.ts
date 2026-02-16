@@ -1,8 +1,9 @@
-import { initializeApp, FirebaseApp } from "firebase/app";
+import { FirebaseApp, initializeApp } from "firebase/app";
 // Auth için React Native uyumlu persistence (kalıcılık) ayarı
-import { initializeAuth, getReactNativePersistence, Auth } from "firebase/auth";
-import { getFirestore, Firestore } from "firebase/firestore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Auth, getReactNativePersistence, initializeAuth } from "firebase/auth";
+import { Database, getDatabase } from "firebase/database";
+import { Firestore, getFirestore } from "firebase/firestore";
 
 // --- SENİN BİLGİLERİN (KONSOLDAN ALDIKLARIN) ---
 const firebaseConfig = {
@@ -24,5 +25,8 @@ const auth: Auth = initializeAuth(app, {
 
 const db: Firestore = getFirestore(app);
 
+// Realtime Database (Couple Mode / households için)
+const realtimeDb: Database = getDatabase(app);
+
 // Analytics'i SİLDİK. Şu anlık kullanma.
-export { auth, db };
+export { app, auth, db, realtimeDb };

@@ -6,12 +6,14 @@ import { CalendarTabProps } from '../types/components';
 import { fixDateStringWithYear, keyOf } from '../utils';
 
 export default function CalendarTab({
+  header,
   currentMonth, currentYear, shiftMonth, monthNames, weekdayShort, daysSafe,
   selectedDate, setSelectedDate,
   calendarQuickTaskText, setCalendarQuickTaskText, addTask,
   tasks, completeTask, deleteTask,
   themeCard, themeText, themeSubText, actionColor, t 
 }: CalendarTabProps) {
+  const topPadding = header ? 10 : 32;
   return (
     <KeyboardAvoidingView 
       style={{ flex: 1 }} 
@@ -20,10 +22,11 @@ export default function CalendarTab({
     >
       <ScrollView 
         style={{ flex: 1 }} 
-        contentContainerStyle={styles.scrollGrowPadded} 
+        contentContainerStyle={[styles.scrollGrowPadded, { paddingTop: topPadding }]} 
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="interactive"
       >
+      {header}
       <View style={[styles.sectionCard, { backgroundColor: themeCard }]}>
         <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
           <TouchableOpacity onPress={() => shiftMonth(-1)} style={styles.arrowBtn}>

@@ -13,7 +13,7 @@ export type Task = {
   description?: string; 
 };
 
-export type PetType = "cat" | "dog";
+export type PetType = "cat" | "dog" | "penguin";
 
 export type Pet = {
   type: PetType;

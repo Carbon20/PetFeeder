@@ -1,23 +1,4 @@
 {
-  "cli": {
-    "version": ">= 16.20.0",
-    "appVersionSource": "remote"
-  },
-  "build": {
-    "development": {
-      "developmentClient": true,
-      "distribution": "internal"
-    },
-    "preview": {
-      "distribution": "internal"
-    },
-    "production": {
-      "autoIncrement": true
-    }
-  },
-  "submit": {
-    "production": {}
-  },
   "expo": {
     "name": "PetFeeder",
     "slug": "feed-pet",
@@ -27,6 +8,8 @@
     "scheme": "petfeeder",
     "userInterfaceStyle": "automatic",
     "ios": {
+      "bundleIdentifier": "com.arslanstdio20.petfeeder20",
+      "buildNumber": "1",
       "supportsTablet": true,
       "infoPlist": {
         "NSUserNotificationsUsageDescription": "Bu uygulama görev hatırlatıcıları için bildirim göndermek istiyor.",
@@ -43,8 +26,7 @@
         "POST_NOTIFICATIONS"
       ],
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false,
-      "playBilling": true
+      "predictiveBackGestureEnabled": false
     },
     "web": {
       "output": "static",
@@ -95,4 +77,3 @@
     }
   }
 }
-

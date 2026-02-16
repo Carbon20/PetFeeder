@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
   pager: { flex: 1, marginBottom: 90 }, 
   page: { flex: 1 },
   scrollGrowPadded: { flexGrow: 1, paddingHorizontal: 16, paddingBottom: 140, paddingTop: 10 },
-  headerShifted: { paddingHorizontal: 16, paddingTop: 16, paddingBottom: 10 },
+  headerShifted: { paddingHorizontal: 16, paddingTop: 10, paddingBottom: 10 },
   title: { fontSize: 28, fontWeight: "900", letterSpacing: -0.5 },
   subtitle: { marginTop: 4, fontSize: 13, fontWeight: "600" },
   headerLogo: { 
@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
   },
   
   // Modern Başlık Stilleri
-  titleModern1: { 
+    titleModern1: { 
     fontSize: 30, 
     fontWeight: "900", 
     letterSpacing: -0.8,
@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
     textShadowRadius: 4,
   },
   titleModern2: { 
-    fontSize: 30, 
+    fontSize: 20, 
     fontWeight: "900", 
     letterSpacing: -0.8,
     textShadowColor: 'rgba(0,0,0,0.08)',
