@@ -1,5 +1,6 @@
 import React from "react";
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import RNModal from "react-native-modal";
 
 export type ModernAlertButton = {
   text: string;
@@ -36,7 +37,7 @@ export default function ModernAlert({
       : [{ text: "OK", onPress: onClose, variant: "primary" as const }];
 
   return (
-    <Modal visible={visible} transparent animationType="fade">
+    <RNModal isVisible={visible} animationIn="fadeIn" animationOut="fadeOut" onBackdropPress={onClose} style={{ margin: 0 }}>
       <View style={styles.backdrop}>
         <View style={[styles.card, { backgroundColor: themeCard }]}>
           <Text style={[styles.title, { color: themeText }]}>{title}</Text>
@@ -68,7 +69,7 @@ export default function ModernAlert({
           </View>
         </View>
       </View>
-    </Modal>
+    </RNModal>
   );
 }
 

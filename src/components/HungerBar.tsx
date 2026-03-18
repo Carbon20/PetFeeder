@@ -1,7 +1,7 @@
+import { Utensils } from "lucide-react-native";
 import React, { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
-import { Utensils } from "lucide-react-native";
 
 interface HungerBarProps {
   /** Doyma yüzdesi 0–100 */
@@ -22,11 +22,32 @@ export default function HungerBar({ percent, width = 120, height = 14 }: HungerB
     width: width * fillRatio.value,
   }));
 
+  // Color transitions: empty=red, mid=orange, full=green
+  const fillColor =
+    percent < 30 ? '#ef4444' :
+      percent < 70 ? '#f97316' :
+        '#22c55e';
+
   return (
     <View style={styles.outer}>
-      <Utensils size={20} color="#f97316" />
+      <Utensils size={20} color={fillColor} />
       <View style={[styles.track, { width, height }]}>
-        <Animated.View style={[styles.fill, { height }, fillStyle]} />
+        {/* Segment dividers */}
+        {[1, 2, 3, 4].map((i) => (
+          <View
+            key={i}
+            style={{
+              position: 'absolute',
+              left: `${i * 20}%` as any,
+              top: 0,
+              bottom: 0,
+              width: 2,
+              backgroundColor: 'rgba(255,255,255,0.7)',
+              zIndex: 2,
+            }}
+          />
+        ))}
+        <Animated.View style={[styles.fill, { height, backgroundColor: fillColor }, fillStyle]} />
       </View>
     </View>
   );
@@ -39,12 +60,13 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   track: {
-    backgroundColor: "rgba(255,255,255,0.35)",
+    backgroundColor: "rgba(0,0,0,0.12)",
     borderRadius: 999,
     overflow: "hidden",
+    borderWidth: 1.5,
+    borderColor: "rgba(150,150,150,0.25)",
   },
   fill: {
-    backgroundColor: "#f97316",
     borderRadius: 999,
   },
 });

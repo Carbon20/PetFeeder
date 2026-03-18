@@ -51,6 +51,7 @@ export interface TasksTabProps {
   themeSubText: string;
   actionColor: string;
   t: Record<string, any>;
+  setShowAddModal: (show: boolean) => void;
 }
 
 // CalendarTab Props
@@ -86,6 +87,7 @@ export interface SettingsTabProps {
   user: User | null;
   userDoc: UserData | null;
   handleLogout: () => void;
+  handleDeleteAccount: () => void;
   isRegistering: boolean;
   setAuthModalVisible: (show: boolean) => void;
   setIsRegistering: (is: boolean) => void;

@@ -1,8 +1,8 @@
 import { ThemeColor } from "./types";
 
-export const CURRENT_APP_VERSION = "3.0.0"; 
-export const STORE_URL = "https://play.google.com/store/apps/details?id=com.arslanstdioh.petfeeder"; 
-export const REVENUECAT_API_KEY = "goog_rEaMOfTSaUylfUmosaPOTAkxUzW"; 
+export const CURRENT_APP_VERSION = "3.0.0";
+export const STORE_URL = "https://play.google.com/store/apps/details?id=com.arslanstdioh.petfeeder";
+export const REVENUECAT_API_KEY = "goog_rEaMOfTSaUylfUmosaPOTAkxUzW";
 
 // Storage Keys
 export const STORAGE_KEYS = {
@@ -24,7 +24,8 @@ export const STORAGE_KEYS = {
   PET_TYPE: "petfeeder_pet_type",
   ONBOARD_SHOWN: "petfeeder_onboard_shown",
   IS_GUEST: "petfeeder_is_guest",
-  USER_ID: "petfeeder_user_id"
+  USER_ID: "petfeeder_user_id",
+  POMODORO_SESSIONS: "petfeeder_pomodoro_sessions"
 };
 
 // SKU IDs
@@ -40,7 +41,7 @@ export const TRANSLATIONS = {
     appName: "🐾 PetFeeder",
     subtitle: "Görevlerini yap, hayvanını büyüt ve mutlu et!",
     madeBy: "",
-    navGarden: "Petlerim", navHome: "Ana", navTasks: "Görevler", navCalendar: "Takvim", navSettings: "Ayarlar",
+    navGarden: "Petlerim", navHome: "Ana", navTasks: "Görevler", navCalendar: "Takvim", navSettings: "Ayarlar", navPomodoro: "Odak",
     growth: "Büyüme", growthStats: "{current} / {target} Büyüme • Yaş {age}",
     addTaskBtn: "Görev Ekle", timerBtn: "Sayaç", quickAddTitle: "Hızlı Görev Ekle", quickAddPlace: "Görev adını yaz...",
     add: "Ekle", todayTasks: "Bugünkü Görevlerin", noTaskToday: "Bugün için görevin yok. Bir tane ekle! 🐾",
@@ -62,7 +63,7 @@ export const TRANSLATIONS = {
     themeSelectDesc: "Favori rengi seç ve uygulama içi ana buton ve ögelerde etkin olsun!", continue: "Devam Et",
     themeNote: "Ayarlar'dan tekrar değiştirebilirsin.", petSelectTitle: "Hayvanı Seç", petSelectDesc: "Hangi evcil hayvanı beslemek istiyorsun?",
     petNameLabel: "Bir de isim ver:", petNameInputPlace: "İsim (boş bırakırsan 'Sonny' olur)", languageSelect: "Dil / Language",
-    addTaskTitle: "Görev Ekle", addTaskPlace: "Örn: Mama ver / su kabını doldur", addDescPlace: "Açıklama (opsiyonel)", taskType: "Görev Tipi",
+    addTaskTitle: "Görev Ekle", addTaskPlace: "Örn: Spora git / Ders çalış / Ev işi yap", addDescPlace: "Açıklama (opsiyonel)", taskType: "Görev Tipi",
     repeat: "Tekrar", repeatNone: "Yok", repeatDaily: "Her Gün", repeatWeekly: "Her Hafta", setReminder: "Bu görev için zaman seç (bildirim)",
     dateTime: "Tarih ve Saat", dateLabel: "Tarih", timeLabel: "Saat", cancel: "Vazgeç", save: "Kaydet", timerTitle: "Zamanlayıcı", start: "Başlat", pause: "Duraklat", reset: "Sıfırla",
     timerRunning: "Sayaç Devam Ediyor", timerClose: "Kapat (sayaç arka planda devam eder)", onboardTitle: "Hoş geldin!",
@@ -77,14 +78,23 @@ export const TRANSLATIONS = {
     toastTaskCompleted: "Görev tamamlandı", toastTaskDeleted: "Görev silindi", toastUndo: "Geri Al",
     today: "Bugün", tomorrow: "Yarın", yesterday: "Dün", routines: "Rutinler",
     support: "Destek", supportTitle: "Destek ve Talepler", supportDesc: "Sorunlarınız, önerileriniz veya talepleriniz için geliştiriciyle iletişime geçin", supportBtn: "Geliştiriciyle İletişime Geç", supportModalTitle: "Mesaj Gönder", supportMessagePlace: "Mesajınızı buraya yazın...", supportSendBtn: "Gönder", supportSuccess: "Mesajınız başarıyla gönderildi! Teşekkürler.", supportError: "Mesaj gönderilirken bir hata oluştu.", supportMessageEmpty: "Lütfen bir mesaj yazın.",
-    coupleMode: "Çift Modu", coupleModeDesc: "Partnerinizle ortak bir evcil hayvan paylaşın.", openCoupleMode: "Çift Modu / Partner Eşleş", coupleModeTitle: "Çift Modu", coupleModeSubtitle: "Partnerinizle ortak bir evcil hayvan paylaşın.", createInviteCode: "Davet Kodu Oluştur", createInviteDesc: "Davet kodunu partnerinizle paylaşın; kodla eve katılsın.", inviteCodePlaceholder: "000000", joinWithCode: "Davet kodu ile katıl", joinWithCodeDesc: "Partnerinizin verdiği 6 haneli kodu girin.", join: "Katıl", yourInviteCode: "Davet kodunuz", shareCodeHint: "Bu kodu partnerinizle paylaşın; eşleşene kadar bekleyin.", yourPartner: "Partnerin", sharedPet: "Ortak hayvanınız", loading: "Yükleniyor...", signInToPair: "Partnerinizle eşleşmek için giriş yapmalısınız.", partnerDefaultName: "Eş", level: "Seviye", hunger: "Açlık",
+    coupleMode: "Çift Modu", coupleModeDesc: "Partnerinizle ortak bir evcil hayvan paylaşın.", openCoupleMode: "Çift Modu / Partner Eşleş", coupleModeTitle: "Çift Modu", coupleModeSubtitle: "Partnerinizle ortak bir evcil hayvan paylaşın.", createInviteCode: "Davet Kodu Oluştur", createInviteDesc: "Davet kodunu partnerinizle paylaşın; kodla eve katılsın.", inviteCodePlaceholder: "000000", joinWithCode: "Davet kodu ile katıl", joinWithCodeDesc: "Partnerinizin verdiği 6 haneli kodu girin.", join: "Katıl", yourInviteCode: "Davet kodunuz", shareCodeHint: "Bu kodu partnerinizle paylaşın; eşleşene kadar bekleyin.", yourPartner: "Partnerin", sharedPet: "Ortak hayvanınız", loading: "Yükleniyor...", signInToPair: "Partnerinizle eşleşmek için giriş yapmalısınız.", partnerDefaultName: "Eş", level: "Seviye", hunger: "Tokluk",
     ageUpTitle: "Tebrikler!", ageUpMsg: "Yaş {age} tebrikler!",
     buyCoins: "Para Satın Al", buyCoinsDesc: "Bahçe parası satın almak için kullanın.", animalNotPurchased: "Hayvan henüz satın alınmadı",
-    otherPets: "Diğer Hayvanlar", buyPet: "Satın Al", coin: "Coin"
+    otherPets: "Diğer Hayvanlar", buyPet: "Satın Al", coin: "Coin",
+    comingSoon: "Yakında", comingSoonDesc: "Coin satın alma özelliği çok yakında geliyor!",
+    pomodoroWork: "Çalışma", pomodoroShort: "Kısa Mola", pomodoroLong: "Uzun Mola",
+    pomodoroHistory: "Oturum Geçmişi", pomodoroNoHistory: "Henüz oturum yok", pomodoroCompleted: "oturum tamamlandı",
+    deleteAccountBtn: "Hesabı Sil",
+    deleteAccountConfirmTitle: "Hesabı Sil",
+    deleteAccountConfirmDesc: "Hesabınızı silmek istediğinize emin misiniz? Bu işlem geri alınamaz.",
+    deleteAccountConfirmBtn: "Sil",
+    recentLoginRequiredTitle: "Yeniden Giriş Gerekli",
+    recentLoginRequiredDesc: "Güvenlik nedeniyle hesabınızı silmek için yakın zamanda giriş yapmış olmanız gerekmektedir. Lütfen çıkış yapıp tekrar giriş yapın."
   },
   en: {
     appName: "🐾 PetFeeder", subtitle: "Write tasks, complete them, make your pet happy!", madeBy: "",
-    navGarden: "My Pets", navHome: "Home", navTasks: "Tasks", navCalendar: "Calendar", navSettings: "Settings",
+    navGarden: "My Pets", navHome: "Home", navTasks: "Tasks", navCalendar: "Calendar", navSettings: "Settings", navPomodoro: "Focus",
     growth: "Growth", growthStats: "{current} / {target} Growth • Age {age}",
     addTaskBtn: "Add Task", timerBtn: "Timer", quickAddTitle: "Quick Add Task", quickAddPlace: "Write task name...",
     add: "Add", todayTasks: "Today's Tasks", noTaskToday: "No tasks for today. Add one! 🐾",
@@ -106,7 +116,7 @@ export const TRANSLATIONS = {
     themeSelectDesc: "Choose your favorite color to apply on buttons and elements!", continue: "Continue",
     themeNote: "You can change this later in Settings.", petSelectTitle: "Choose Your Pet", petSelectDesc: "Which pet do you want to feed?",
     petNameLabel: "Give it a name:", petNameInputPlace: "Name (default 'Sonny')", languageSelect: "Dil / Language",
-    addTaskTitle: "Add Task", addTaskPlace: "E.g. Feed pet / Fill water", addDescPlace: "Description (optional)", taskType: "Task Type",
+    addTaskTitle: "Add Task", addTaskPlace: "E.g. Go to the gym / Study / Do homework", addDescPlace: "Description (optional)", taskType: "Task Type",
     repeat: "Repeat", repeatNone: "None", repeatDaily: "Daily", repeatWeekly: "Weekly", setReminder: "Set time for this task (notification)",
     dateTime: "Date and Time", dateLabel: "Date", timeLabel: "Time", cancel: "Cancel", save: "Save", timerTitle: "Timer", start: "Start", pause: "Pause", reset: "Reset",
     timerRunning: "Timer Running", timerClose: "Close (timer continues in background)", onboardTitle: "Welcome!",
@@ -121,16 +131,25 @@ export const TRANSLATIONS = {
     toastTaskCompleted: "Task completed", toastTaskDeleted: "Task deleted", toastUndo: "Undo",
     today: "Today", tomorrow: "Tomorrow", yesterday: "Yesterday", routines: "Routines",
     support: "Support", supportTitle: "Support & Requests", supportDesc: "Contact the developer for issues, suggestions, or requests", supportBtn: "Contact Developer", supportModalTitle: "Send Message", supportMessagePlace: "Write your message here...", supportSendBtn: "Send", supportSuccess: "Your message has been sent successfully! Thank you.", supportError: "An error occurred while sending the message.", supportMessageEmpty: "Please write a message.",
-    coupleMode: "Couple Mode", coupleModeDesc: "Share a pet with your partner.", openCoupleMode: "Couple Mode / Pair with Partner", coupleModeTitle: "Couple Mode", coupleModeSubtitle: "Share a pet with your partner.", createInviteCode: "Create Invite Code", createInviteDesc: "Share the invite code with your partner so they can join.", inviteCodePlaceholder: "000000", joinWithCode: "Join with invite code", joinWithCodeDesc: "Enter the 6-digit code your partner gave you.", join: "Join", yourInviteCode: "Your invite code", shareCodeHint: "Share this code with your partner and wait until they join.", yourPartner: "Your partner", sharedPet: "Your shared pet", loading: "Loading...", signInToPair: "Sign in to pair with your partner.", partnerDefaultName: "Partner", level: "Level", hunger: "Hunger",
+    coupleMode: "Couple Mode", coupleModeDesc: "Share a pet with your partner.", openCoupleMode: "Couple Mode / Pair with Partner", coupleModeTitle: "Couple Mode", coupleModeSubtitle: "Share a pet with your partner.", createInviteCode: "Create Invite Code", createInviteDesc: "Share the invite code with your partner so they can join.", inviteCodePlaceholder: "000000", joinWithCode: "Join with invite code", joinWithCodeDesc: "Enter the 6-digit code your partner gave you.", join: "Join", yourInviteCode: "Your invite code", shareCodeHint: "Share this code with your partner and wait until they join.", yourPartner: "Your partner", sharedPet: "Your shared pet", loading: "Loading...", signInToPair: "Sign in to pair with your partner.", partnerDefaultName: "Partner", level: "Level", hunger: "Fullness",
     ageUpTitle: "Congrats!", ageUpMsg: "Level {age} reached!",
     buyCoins: "Buy Coins", buyCoinsDesc: "Purchase coins for the garden.", animalNotPurchased: "Animal not purchased yet",
-    otherPets: "Other Pets", buyPet: "Buy", coin: "Coin"
+    otherPets: "Other Pets", buyPet: "Buy", coin: "Coin",
+    comingSoon: "Coming Soon", comingSoonDesc: "Buying coins will be available soon!",
+    pomodoroWork: "Work", pomodoroShort: "Short Break", pomodoroLong: "Long Break",
+    pomodoroHistory: "Session History", pomodoroNoHistory: "No sessions yet", pomodoroCompleted: "sessions completed",
+    deleteAccountBtn: "Delete Account",
+    deleteAccountConfirmTitle: "Delete Account",
+    deleteAccountConfirmDesc: "Are you sure you want to delete your account? This action cannot be undone.",
+    deleteAccountConfirmBtn: "Delete",
+    recentLoginRequiredTitle: "Recent Login Required",
+    recentLoginRequiredDesc: "For safety reasons, you need to have logged in recently to delete your account. Please log out and log in again."
   }
 };
 
 export const THEME_COLORS: ThemeColor[] = [
-  { key: "mavi", label: "M", main: "#4CC9F0", bg: "#dcfce7", accent: "#4361EE" }, 
-  { key: "yesil", label: "G", main: "#58CC02", bg: "#E5F7D0", accent: "#46A302" }, 
+  { key: "mavi", label: "M", main: "#4CC9F0", bg: "#dcfce7", accent: "#4361EE" },
+  { key: "yesil", label: "G", main: "#58CC02", bg: "#E5F7D0", accent: "#46A302" },
   { key: "mor", label: "P", main: "#B5179E", bg: "#FAE0F4", accent: "#7209B7" },
   { key: "buz", label: "S", main: "#90A4AE", bg: "#ECEFF1", accent: "#546E7A" },
   { key: "turuncu", label: "O", main: "#F77F00", bg: "#FFE8D6", accent: "#D62828" },
@@ -138,7 +157,7 @@ export const THEME_COLORS: ThemeColor[] = [
   { key: "gul", label: "R", main: "#f08080", bg: "#FFF0F0", accent: "#E53935" },
 ];
 
-export const monthNamesTr = ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"];
-export const monthNamesEn = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+export const monthNamesTr = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
+export const monthNamesEn = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 export const weekdayShortTr = ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"];
 export const weekdayShortEn = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];

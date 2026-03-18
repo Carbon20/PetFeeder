@@ -2,18 +2,22 @@
   "expo": {
     "name": "PetFeeder",
     "slug": "feed-pet",
-    "version": "3.0.0",
+    "version": "3.0.3",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "petfeeder",
     "userInterfaceStyle": "automatic",
     "ios": {
       "bundleIdentifier": "com.arslanstdio20.petfeeder20",
-      "buildNumber": "1",
+      "buildNumber": "2",
       "supportsTablet": true,
       "infoPlist": {
         "NSUserNotificationsUsageDescription": "Bu uygulama görev hatırlatıcıları için bildirim göndermek istiyor.",
-        "UIBackgroundModes": ["remote-notification"]
+        "UIBackgroundModes": [
+          "remote-notification",
+          "remote-notification"
+        ],
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {

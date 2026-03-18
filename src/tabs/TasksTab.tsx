@@ -1,15 +1,18 @@
 import React, { useMemo } from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { styles } from '../styles';
-import { fixDateStringWithYear } from '../utils';
 import { TasksTabProps } from '../types/components';
+import { fixDateStringWithYear } from '../utils';
 
 export default function TasksTab({
   header,
-  tasks, sortTasks, completeTask, deleteTask, 
-  themeCard, themeText, themeSubText, actionColor, t 
+  tasks, sortTasks, completeTask, deleteTask,
+  themeCard, themeText, themeSubText, actionColor, t,
+  setShowAddModal,
 }: TasksTabProps) {
   const topPadding = header ? 10 : 32;
+  const insets = useSafeAreaInsets();
   const routineTasks = useMemo(
     () => tasks.filter((task) => task.repeat && task.repeat !== "none"),
     [tasks]
@@ -76,92 +79,118 @@ export default function TasksTab({
   }, [parsedGroups, today]);
 
   return (
-    <ScrollView
-      contentContainerStyle={[styles.scrollGrowPadded, { paddingTop: topPadding }]}
-      keyboardShouldPersistTaps="handled"
-      showsVerticalScrollIndicator={false}
-    >
-      {header}
-      <View style={[styles.sectionCard, { backgroundColor: themeCard }]}>
-        <Text style={[styles.sectionTitle, { color: themeText }]}>{t.allTasks}</Text>
-        {routineTasks.length > 0 && (
-          <View style={{ marginBottom: 12 }}>
-            <View
-              style={{
-                alignSelf: "flex-start",
-                backgroundColor: "#0EA5E9",
-                paddingHorizontal: 10,
-                paddingVertical: 4,
-                borderRadius: 10,
-                marginBottom: 6,
-              }}
-            >
-              <Text style={{ color: "#fff", fontWeight: "800", fontSize: 12 }}>
-                {t.routines || "Rutinler"}
-              </Text>
-            </View>
-            {routineTasks.sort(sortTasks).map((item) => (
-              <View key={item.id} style={styles.taskRow}>
-                <TouchableOpacity disabled={item.done} onPress={() => completeTask(item.id)} style={{ marginRight: 12 }}>
-                  <View style={[styles.checkboxCircle, { borderColor: item.done ? '#ccc' : actionColor, backgroundColor: item.done ? '#ccc' : '#fff' }]}>
-                    {item.done && <Text style={{color:'#fff', fontWeight:'bold', fontSize:12}}>✓</Text>}
-                  </View>
-                </TouchableOpacity>
-
-                <View style={{ flex: 1 }}>
-                  <Text style={[styles.taskText, { color: themeText, textDecorationLine: item.done ? 'line-through' : 'none' }]}>{item.text}</Text>
-                  <Text style={[styles.taskMeta, { color: themeSubText }]}>
-                    {(item.repeat === "daily" ? t.repeatDaily : item.repeat === "weekly" ? t.repeatWeekly : t.repeat) || ""}
-                  </Text>
-                </View>
-
-                <TouchableOpacity onPress={() => deleteTask(item.id)} style={styles.iconBtn}>
-                  <Text style={{ fontSize: 18, color: '#FF5252', fontWeight:'bold' }}>✕</Text>
-                </TouchableOpacity>
+    <View style={{ flex: 1 }}>
+      <ScrollView
+        contentContainerStyle={[styles.scrollGrowPadded, { paddingTop: topPadding }]}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+      >
+        {header}
+        <View style={[styles.sectionCard, { backgroundColor: themeCard }]}>
+          <Text style={[styles.sectionTitle, { color: themeText }]}>{t.allTasks}</Text>
+          {routineTasks.length > 0 && (
+            <View style={{ marginBottom: 12 }}>
+              <View
+                style={{
+                  alignSelf: "flex-start",
+                  backgroundColor: "#0EA5E9",
+                  paddingHorizontal: 10,
+                  paddingVertical: 4,
+                  borderRadius: 10,
+                  marginBottom: 6,
+                }}
+              >
+                <Text style={{ color: "#fff", fontWeight: "800", fontSize: 12 }}>
+                  {t.routines || "Rutinler"}
+                </Text>
               </View>
-            ))}
-          </View>
-        )}
-        {sortedGroups.map((group) => (
-          <View key={group.key} style={{ marginBottom: 10 }}>
-            <View
-              style={{
-                alignSelf: "flex-start",
-                backgroundColor: actionColor,
-                paddingHorizontal: 10,
-                paddingVertical: 4,
-                borderRadius: 10,
-                marginBottom: 6,
-              }}
-            >
-              <Text style={{ color: "#fff", fontWeight: "800", fontSize: 12 }}>
-                {group.label}
-              </Text>
-            </View>
-            {group.items.sort(sortTasks).map((item) => (
-              <View key={item.id} style={styles.taskRow}>
-                <TouchableOpacity disabled={item.done} onPress={() => completeTask(item.id)} style={{ marginRight: 12 }}>
-                  <View style={[styles.checkboxCircle, { borderColor: item.done ? '#ccc' : actionColor, backgroundColor: item.done ? '#ccc' : '#fff' }]}>
-                    {item.done && <Text style={{color:'#fff', fontWeight:'bold', fontSize:12}}>✓</Text>}
+              {routineTasks.sort(sortTasks).map((item) => (
+                <View key={item.id} style={styles.taskRow}>
+                  <TouchableOpacity disabled={item.done} onPress={() => completeTask(item.id)} style={{ marginRight: 12 }}>
+                    <View style={[styles.checkboxCircle, { borderColor: item.done ? '#ccc' : actionColor, backgroundColor: item.done ? '#ccc' : '#fff' }]}>
+                      {item.done && <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 12 }}>✓</Text>}
+                    </View>
+                  </TouchableOpacity>
+
+                  <View style={{ flex: 1 }}>
+                    <Text style={[styles.taskText, { color: themeText, textDecorationLine: item.done ? 'line-through' : 'none' }]}>{item.text}</Text>
+                    <Text style={[styles.taskMeta, { color: themeSubText }]}>
+                      {(item.repeat === "daily" ? t.repeatDaily : item.repeat === "weekly" ? t.repeatWeekly : t.repeat) || ""}
+                    </Text>
                   </View>
-                </TouchableOpacity>
 
-                <View style={{ flex: 1 }}>
-                  <Text style={[styles.taskText, { color: themeText, textDecorationLine: item.done ? 'line-through' : 'none' }]}>{item.text}</Text>
-                  <Text style={[styles.taskMeta, { color: themeSubText }]}>
-                    {fixDateStringWithYear(item.date)} 
-                    {item.repeat && item.repeat !== "none" ? " • ♻️" : ""}
-                  </Text>
+                  <TouchableOpacity onPress={() => deleteTask(item.id)} style={styles.iconBtn}>
+                    <Text style={{ fontSize: 18, color: '#FF5252', fontWeight: 'bold' }}>✕</Text>
+                  </TouchableOpacity>
                 </View>
-
-                <TouchableOpacity onPress={() => deleteTask(item.id)} style={styles.iconBtn}>
-                  <Text style={{ fontSize: 18, color: '#FF5252', fontWeight:'bold' }}>✕</Text>
-                </TouchableOpacity>
+              ))}
+            </View>
+          )}
+          {sortedGroups.map((group) => (
+            <View key={group.key} style={{ marginBottom: 10 }}>
+              <View
+                style={{
+                  alignSelf: "flex-start",
+                  backgroundColor: actionColor,
+                  paddingHorizontal: 10,
+                  paddingVertical: 4,
+                  borderRadius: 10,
+                  marginBottom: 6,
+                }}
+              >
+                <Text style={{ color: "#fff", fontWeight: "800", fontSize: 12 }}>
+                  {group.label}
+                </Text>
               </View>
-            ))}
-          </View>
-        ))}
-      </View>
-    </ScrollView>
+              {group.items.sort(sortTasks).map((item) => (
+                <View key={item.id} style={styles.taskRow}>
+                  <TouchableOpacity disabled={item.done} onPress={() => completeTask(item.id)} style={{ marginRight: 12 }}>
+                    <View style={[styles.checkboxCircle, { borderColor: item.done ? '#ccc' : actionColor, backgroundColor: item.done ? '#ccc' : '#fff' }]}>
+                      {item.done && <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 12 }}>✓</Text>}
+                    </View>
+                  </TouchableOpacity>
+
+                  <View style={{ flex: 1 }}>
+                    <Text style={[styles.taskText, { color: themeText, textDecorationLine: item.done ? 'line-through' : 'none' }]}>{item.text}</Text>
+                    <Text style={[styles.taskMeta, { color: themeSubText }]}>
+                      {fixDateStringWithYear(item.date)}
+                      {item.repeat && item.repeat !== "none" ? " • ♻️" : ""}
+                    </Text>
+                  </View>
+
+                  <TouchableOpacity onPress={() => deleteTask(item.id)} style={styles.iconBtn}>
+                    <Text style={{ fontSize: 18, color: '#FF5252', fontWeight: 'bold' }}>✕</Text>
+                  </TouchableOpacity>
+                </View>
+              ))}
+            </View>
+          ))}
+        </View>
+      </ScrollView>
+
+      {/* ── Floating Add Button ── */}
+      <TouchableOpacity
+        onPress={() => setShowAddModal(true)}
+        activeOpacity={0.85}
+        style={{
+          position: 'absolute',
+          bottom: Math.max(insets.bottom, 16) + 8,
+          right: 20,
+          width: 56,
+          height: 56,
+          borderRadius: 28,
+          backgroundColor: actionColor,
+          alignItems: 'center',
+          justifyContent: 'center',
+          elevation: 8,
+          shadowColor: actionColor,
+          shadowOpacity: 0.45,
+          shadowRadius: 10,
+          shadowOffset: { width: 0, height: 4 },
+        }}
+      >
+        <Text style={{ color: '#fff', fontSize: 28, fontWeight: '300', lineHeight: 30, marginTop: -2 }}>+</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
